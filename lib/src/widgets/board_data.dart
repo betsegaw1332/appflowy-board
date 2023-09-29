@@ -173,9 +173,10 @@ class AppFlowyBoardController extends ChangeNotifier
   /// Moves the group's item from [fromIndex] to [toIndex]
   /// If the group with id [groupId] is not exist, this method will do nothing.
   void moveGroupItem(String groupId, int fromIndex, int toIndex) {
-    // if (getGroupController(groupId)?.move(fromIndex, toIndex) ?? false) {
-    //   onMoveGroupItem?.call(groupId, fromIndex, toIndex);
-    // }
+    if (getGroupController(groupId)?.move(fromIndex, toIndex) ?? false) {
+      onMoveGroupItem?.call(groupId, fromIndex, toIndex);  
+    }
+    
   }
 
   /// Adds the [AppFlowyGroupItem] to the end of the group
