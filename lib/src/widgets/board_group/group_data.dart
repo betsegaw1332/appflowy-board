@@ -174,9 +174,9 @@ class AppFlowyGroupController extends ChangeNotifier with EquatableMixin {
   void enableDragging(bool isEnable) {
     groupData.draggable = isEnable;
 
-    for (var item in groupData._items) {
-      item.draggable = isEnable;
-    }
+    // for (var item in groupData._items) {
+    //   item.draggable = isEnable;
+    // }
     _notify();
   }
 
