@@ -76,26 +76,29 @@ class BoardPhantomController extends OverlapDragTargetDelegate
 
   /// Remove the phantom in the group when the group is end dragging.
   void groupEndDragging(String groupId) {
-    phantomState.setGroupIsDragging(groupId, false);
-    if (phantomRecord == null) return;
+    if (int.parse(phantomRecord!.fromGroupId) <
+        int.parse(phantomRecord!.toGroupId)) {
+      phantomState.setGroupIsDragging(groupId, false);
+      if (phantomRecord == null) return;
 
-    final fromGroupId = phantomRecord!.fromGroupId;
-    final toGroupId = phantomRecord!.toGroupId;
-    if (fromGroupId == groupId) {
-      phantomState.notifyDidRemovePhantom(toGroupId);
-    }
+      final fromGroupId = phantomRecord!.fromGroupId;
+      final toGroupId = phantomRecord!.toGroupId;
+      if (fromGroupId == groupId) {
+        phantomState.notifyDidRemovePhantom(toGroupId);
+      }
 
-    if (phantomRecord!.toGroupId == groupId) {
-      delegate.moveGroupItemToAnotherGroup(
-        fromGroupId,
-        phantomRecord!.fromGroupIndex,
-        toGroupId,
-        phantomRecord!.toGroupIndex,
-      );
+      if (phantomRecord!.toGroupId == groupId) {
+        delegate.moveGroupItemToAnotherGroup(
+          fromGroupId,
+          phantomRecord!.fromGroupIndex,
+          toGroupId,
+          phantomRecord!.toGroupIndex,
+        );
 
-      // Log.debug(
-      //     "[$BoardPhantomController] did move ${phantomRecord.toString()}");
-      phantomRecord = null;
+        // Log.debug(
+        //     "[$BoardPhantomController] did move ${phantomRecord.toString()}");
+        phantomRecord = null;
+      }
     }
   }
 
