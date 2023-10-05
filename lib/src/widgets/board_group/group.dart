@@ -155,8 +155,13 @@ class _AppFlowyBoardGroupState extends State<AppFlowyBoardGroup> {
           scrollController: widget.scrollController,
           config: widget.config,
           onDragStarted: (index) {
-            widget.phantomController.groupStartDragging(widget.groupId);
-            widget.onDragStarted?.call(index);
+            if (int.parse(widget.phantomController.phantomRecord!.fromGroupId) <
+                int.parse(widget.phantomController.phantomRecord!.toGroupId)) {
+              print("HERE START DRAGGING IF IT IS LESS THAN");
+
+              widget.phantomController.groupStartDragging(widget.groupId);
+              widget.onDragStarted?.call(index);
+            }
           },
           onReorder: ((fromIndex, toIndex) {
             // if (widget.phantomController.shouldReorder(widget.groupId)) {
