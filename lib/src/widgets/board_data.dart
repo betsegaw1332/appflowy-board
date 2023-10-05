@@ -230,7 +230,7 @@ class AppFlowyBoardController extends ChangeNotifier
     final fromGroupItem = fromGroupController.removeAt(fromGroupIndex);
     if (fromGroupItem == null) return;
 
-    if (toGroupController.items.length > toGroupIndex) {
+    if (toGroupController.items.length > toGroupIndex && (int.parse(fromGroupId)<int.parse(toGroupId) )) {
       assert(toGroupController.items[toGroupIndex] is PhantomGroupItem);
 
       toGroupController.replace(toGroupIndex, fromGroupItem);
