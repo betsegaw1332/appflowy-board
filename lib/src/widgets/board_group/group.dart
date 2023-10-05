@@ -155,13 +155,8 @@ class _AppFlowyBoardGroupState extends State<AppFlowyBoardGroup> {
           scrollController: widget.scrollController,
           config: widget.config,
           onDragStarted: (index) {
-            if (int.parse(widget.phantomController.phantomRecord!.fromGroupId) <
-                int.parse(widget.phantomController.phantomRecord!.toGroupId)) {
-              print("HERE START DRAGGING IF IT IS LESS THAN");
-
-              widget.phantomController.groupStartDragging(widget.groupId);
-              widget.onDragStarted?.call(index);
-            }
+            widget.phantomController.groupStartDragging(widget.groupId);
+            widget.onDragStarted?.call(index);
           },
           onReorder: ((fromIndex, toIndex) {
             // if (widget.phantomController.shouldReorder(widget.groupId)) {
@@ -170,12 +165,9 @@ class _AppFlowyBoardGroupState extends State<AppFlowyBoardGroup> {
             // }
           }),
           onDragEnded: () {
-            if (int.parse(widget.phantomController.phantomRecord!.fromGroupId) <
-                int.parse(widget.phantomController.phantomRecord!.toGroupId)) {
-              widget.phantomController.groupEndDragging(widget.groupId);
+            widget.phantomController.groupEndDragging(widget.groupId);
               widget.onDragEnded?.call(widget.groupId);
               widget.dataSource.debugPrint();
-            }
           },
           dataSource: widget.dataSource,
           interceptor: interceptor,

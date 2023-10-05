@@ -174,9 +174,8 @@ class AppFlowyBoardController extends ChangeNotifier
   /// If the group with id [groupId] is not exist, this method will do nothing.
   void moveGroupItem(String groupId, int fromIndex, int toIndex) {
     if (getGroupController(groupId)?.move(fromIndex, toIndex) ?? false) {
-      onMoveGroupItem?.call(groupId, fromIndex, toIndex);  
+      onMoveGroupItem?.call(groupId, fromIndex, toIndex);
     }
-    
   }
 
   /// Adds the [AppFlowyGroupItem] to the end of the group
@@ -230,7 +229,7 @@ class AppFlowyBoardController extends ChangeNotifier
     final fromGroupItem = fromGroupController.removeAt(fromGroupIndex);
     if (fromGroupItem == null) return;
 
-    if (toGroupController.items.length > toGroupIndex && (int.parse(fromGroupId)<int.parse(toGroupId) )) {
+    if (toGroupController.items.length > toGroupIndex) {
       assert(toGroupController.items[toGroupIndex] is PhantomGroupItem);
 
       toGroupController.replace(toGroupIndex, fromGroupItem);
