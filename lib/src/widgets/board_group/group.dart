@@ -165,9 +165,12 @@ class _AppFlowyBoardGroupState extends State<AppFlowyBoardGroup> {
             // }
           }),
           onDragEnded: () {
-            widget.phantomController.groupEndDragging(widget.groupId);
-            widget.onDragEnded?.call(widget.groupId);
-            widget.dataSource.debugPrint();
+            if (int.parse(widget.phantomController.phantomRecord!.fromGroupId) <
+                int.parse(widget.phantomController.phantomRecord!.toGroupId)) {
+              widget.phantomController.groupEndDragging(widget.groupId);
+              widget.onDragEnded?.call(widget.groupId);
+              widget.dataSource.debugPrint();
+            }
           },
           dataSource: widget.dataSource,
           interceptor: interceptor,
