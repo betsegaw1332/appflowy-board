@@ -195,7 +195,11 @@ class ReorderFlexState extends State<ReorderFlex>
               widget.boardController!.animateTo(position,
                   duration: const Duration(milliseconds: 300),
                   curve: Curves.ease);
+                  if(status==AnimationStatus.completed){
+                    widget.boardController!.jumpTo(position);
+                  }
             });
+           
             }
            
           // else if (widget.boardController!.position.atEdge && status == AnimationStatus.completed) {
