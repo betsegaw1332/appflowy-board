@@ -95,7 +95,7 @@ class AppFlowyBoardGroup extends StatefulWidget {
   final ReorderDragTargeKeys? dragTargetKeys;
 
   final ReorderFlexAction? reorderFlexAction;
-
+  final ScrollController? boardController;
   const AppFlowyBoardGroup({
     Key? key,
     this.headerBuilder,
@@ -115,7 +115,9 @@ class AppFlowyBoardGroup extends StatefulWidget {
     this.cornerRadius = 0.0,
     this.backgroundColor = Colors.transparent,
     this.stretchGroupHeight = true,
-  })  : config = const ReorderFlexConfig(),
+    this.config =const ReorderFlexConfig(),
+    this.boardController
+  })  : 
         super(key: key);
 
   @override
@@ -153,6 +155,7 @@ class _AppFlowyBoardGroupState extends State<AppFlowyBoardGroup> {
           dragStateStorage: widget.dragStateStorage,
           dragTargetKeys: widget.dragTargetKeys,
           scrollController: widget.scrollController,
+          boardController: widget.boardController,
           config: widget.config,
           onDragStarted: (index) {
             widget.phantomController.groupStartDragging(widget.groupId);

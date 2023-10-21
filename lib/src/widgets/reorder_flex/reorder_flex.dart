@@ -116,6 +116,8 @@ class ReorderFlex extends StatefulWidget {
 
   final ReorderFlexAction? reorderFlexAction;
 
+  final ScrollController? boardController;
+
   ReorderFlex({
     Key? key,
     this.scrollController,
@@ -127,6 +129,7 @@ class ReorderFlex extends StatefulWidget {
     this.dragTargetKeys,
     this.onDragStarted,
     this.onDragEnded,
+    this.boardController,
     this.interceptor,
     this.reorderFlexAction,
   })  : assert(children.every((Widget w) => w.key != null),
@@ -157,23 +160,67 @@ class ReorderFlexState extends State<ReorderFlex>
   late DragTargetAnimation _animation;
 
   late ReorderFlexNotifier _notifier;
-
+  int currentIndex = 0;
   @override
   void initState() {
+    print("ALL RENDER FLEX DIRECTION ### ${widget.config.direction}");
     _notifier = ReorderFlexNotifier();
     final flexId = widget.reorderFlexId;
     draggingState = widget.dragStateStorage?.readState(flexId) ??
         DraggingState(widget.reorderFlexId);
     Log.trace('[DragTarget] init dragState: $draggingState');
-
     widget.dragStateStorage?.removeState(flexId);
 
     _animation = DragTargetAnimation(
       reorderAnimationDuration: widget.config.reorderAnimationDuration,
       entranceAnimateStatusChanged: (status) {
+        // print("HERE IS SCROLLING DIRECTINO #### ${widget.scrollController!.position} ${widget.config.direction}");
+
+        if (widget.boardController != null) {
+          // print(
+          //     "THIS IS ANIMATION #########  $flexId $currentIndex");
+          // if (!widget.boardController!.position.atEdge ||
+          //     widget.boardController!.position.pixels == 0 && int.parse(flexId)>currentIndex) {
+          //       print("ALWAYS MOCE FORWARD");
+          //   WidgetsBinding.instance.addPostFrameCallback((_) {
+          //     double position = int.parse(flexId) * (100 + 2 * 10) + (10 + 10);
+          //     widget.boardController!.animateTo(position,
+          //         duration: const Duration(milliseconds: 300),
+          //         curve: Curves.ease);
+          //   });
+          // } 
+            if(int.parse(flexId)<5){
+              WidgetsBinding.instance.addPostFrameCallback((_) {
+              double position =int.parse(flexId)==0? -10:int.parse(flexId) * (100 + 2 * 10) + (10 + 10);
+              widget.boardController!.animateTo(position,
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.ease);
+            });
+            }
+           
+          // else if (widget.boardController!.position.atEdge && status == AnimationStatus.completed) {
+          //   WidgetsBinding.instance.addPostFrameCallback((_) {
+          //     double position = int.parse(flexId) * (100 + 2 * 10) + (10 + 10);
+          //     widget.boardController!.animateTo(0,
+          //         duration: const Duration(milliseconds: 300),
+          //         curve: Curves.ease);
+          //   });
+          // }
+        }
+        
+
         if (status == AnimationStatus.completed) {
           if (draggingState.nextIndex == -1) return;
           setState(() => _requestAnimationToNextIndex());
+        }
+
+        if (widget.config.direction == Axis.horizontal) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            double _position = int.parse(flexId) * (40 + 2 * 10) + (10 + 10);
+            widget.scrollController!.animateTo(_position,
+                duration: const Duration(milliseconds: 1000),
+                curve: Curves.ease);
+          });
         }
       },
       vsync: this,
@@ -186,6 +233,12 @@ class ReorderFlexState extends State<ReorderFlex>
     widget.reorderFlexAction?._resetDragTargetIndex = (index) {
       resetDragTargetIndex(index);
     };
+
+    if (widget.config.direction == Axis.horizontal) {
+      //  widget.scrollController!.addListener(() {
+      //     print("HERE IS CURRENT LOCATION ####${widget.scrollController!.offset}");
+      // });
+    }
 
     super.initState();
   }
@@ -594,12 +647,15 @@ class ReorderFlexState extends State<ReorderFlex>
   }
 
   Widget _wrapScrollView({required Widget child}) {
+    print("HERE THE DIRECTION ### ${widget.config.direction}");
     if (widget.scrollController != null &&
         PrimaryScrollController.of(context) == null) {
       return child;
     } else {
       return Scrollbar(
         controller: _scrollController,
+        interactive: true,
+        trackVisibility: true,
         thumbVisibility: true,
         child: SingleChildScrollView(
           scrollDirection: widget.config.direction,

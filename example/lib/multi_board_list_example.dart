@@ -22,10 +22,17 @@ class _MultiBoardListExampleState extends State<MultiBoardListExample> {
   );
 
   late AppFlowyBoardScrollController boardController;
-
+  late ScrollController scrollController;
   @override
   void initState() {
     boardController = AppFlowyBoardScrollController();
+    scrollController = ScrollController();
+
+  
+    scrollController.addListener(() {
+      var position = scrollController.position.maxScrollExtent;
+      print(" IS SCROLL CONTROLLER POSITION #### $position");
+    });
     final group1 = AppFlowyGroupData(id: "0", name: "To Do", items: [
       TextItem("Card 1"),
       TextItem("Card 2"),
@@ -47,12 +54,38 @@ class _MultiBoardListExampleState extends State<MultiBoardListExample> {
       ],
     );
 
-    final group3 = AppFlowyGroupData(
-        id: "2", name: "Done", items: <AppFlowyGroupItem>[]);
+    final group3 =
+        AppFlowyGroupData(id: "2", name: "Done", items: <AppFlowyGroupItem>[]);
+    final group4 =
+        AppFlowyGroupData(id: "4", name: "Done4", items: <AppFlowyGroupItem>[]);
+    final group5 =
+        AppFlowyGroupData(id: "5", name: "Don5", items: <AppFlowyGroupItem>[]);
+    final group6 =
+        AppFlowyGroupData(id: "6", name: "Don6", items: <AppFlowyGroupItem>[]);
+    final group7 =
+        AppFlowyGroupData(id: "7", name: "Don7", items: <AppFlowyGroupItem>[]);
+    final group8 =
+        AppFlowyGroupData(id: "8", name: "Don8", items: <AppFlowyGroupItem>[]);
+    final group9 =
+        AppFlowyGroupData(id: "9", name: "Don9", items: <AppFlowyGroupItem>[]);
+    final group10 = AppFlowyGroupData(
+        id: "10", name: "Done10", items: <AppFlowyGroupItem>[]);
+    final group11 = AppFlowyGroupData(
+        id: "11", name: "Done11", items: <AppFlowyGroupItem>[]);
 
     controller.addGroup(group1);
     controller.addGroup(group2);
     controller.addGroup(group3);
+
+    controller.addGroup(group4);
+    controller.addGroup(group5);
+    controller.addGroup(group6);
+    controller.addGroup(group7);
+    controller.addGroup(group8);
+    controller.addGroup(group9);
+    controller.addGroup(group10);
+    controller.addGroup(group11);
+
     controller.enableGroupDragging(false);
 
     super.initState();
@@ -62,10 +95,10 @@ class _MultiBoardListExampleState extends State<MultiBoardListExample> {
   Widget build(BuildContext context) {
     final config = AppFlowyBoardConfig(
       groupBackgroundColor: HexColor.fromHex('#F7F8FC'),
-
       stretchGroupHeight: true,
     );
     return AppFlowyBoard(
+        scrollController: scrollController,
         controller: controller,
         cardBuilder: (context, group, groupItem) {
           return AppFlowyGroupCard(

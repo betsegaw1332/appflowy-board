@@ -118,7 +118,7 @@ class AppFlowyBoard extends StatelessWidget {
             delegate: controller,
             groupsState: boardState,
           );
-
+          
           if (boardScrollController != null) {
             boardScrollController!._boardState = boardState;
           }
@@ -209,7 +209,7 @@ class _AppFlowyBoardContentState extends State<_AppFlowyBoardContent> {
           interceptor: interceptor,
           children: _buildColumns(),
         );
-
+        print("THIS IS BOARD STATE ### ${widget.scrollManager==null}");
         return Stack(
           alignment: AlignmentDirectional.topStart,
           children: [
@@ -267,6 +267,7 @@ class _AppFlowyBoardContentState extends State<_AppFlowyBoardContent> {
                 headerBuilder: _buildHeader,
                 footerBuilder: widget.footerBuilder,
                 cardBuilder: widget.cardBuilder,
+                boardController: widget.scrollController,
                 dataSource: dataSource,
                 scrollController: ScrollController(),
                 phantomController: widget.phantomController,
