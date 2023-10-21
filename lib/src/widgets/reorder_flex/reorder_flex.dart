@@ -189,7 +189,7 @@ class ReorderFlexState extends State<ReorderFlex>
           //         curve: Curves.ease);
           //   });
           // } 
-            if(widget.boardController!.offset <= widget.boardController!.position.maxScrollExtent){
+            if(widget.boardController!.offset < widget.boardController!.position.maxScrollExtent){
               WidgetsBinding.instance.addPostFrameCallback((_) {
               double position =int.parse(flexId)==0? -10:int.parse(flexId) * (100 + 2 * 10) + (10 + 10);
               widget.boardController!.animateTo(position,
