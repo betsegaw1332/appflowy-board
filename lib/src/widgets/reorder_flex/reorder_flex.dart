@@ -176,9 +176,9 @@ class ReorderFlexState extends State<ReorderFlex>
       entranceAnimateStatusChanged: (status) {
         // print("HERE IS SCROLLING DIRECTINO #### ${widget.scrollController!.position} ${widget.config.direction}");
 
-        if (widget.boardController != null) {
-          print(
-              "THIS IS ANIMATION #########  ${widget.boardController!.offset} ${ widget.boardController!.position.maxScrollExtent}");
+        // if (widget.boardController != null) {
+          // print(
+          //     "THIS IS ANIMATION #########  ${widget.boardController!.offset} ${ widget.boardController!.position.maxScrollExtent}");
           // if (!widget.boardController!.position.atEdge ||
           //     widget.boardController!.position.pixels == 0 && int.parse(flexId)>currentIndex) {
           //       print("ALWAYS MOCE FORWARD");
@@ -189,16 +189,16 @@ class ReorderFlexState extends State<ReorderFlex>
           //         curve: Curves.ease);
           //   });
           // } 
-            if(widget.boardController!.offset < widget.boardController!.position.maxScrollExtent){
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-              double position =int.parse(flexId)==0? -10:int.parse(flexId) * (150 + 2 * 10) + (10 + 10);
-              widget.boardController!.animateTo(position,
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.ease);
+            // if(widget.boardController!.offset < widget.boardController!.position.maxScrollExtent){
+            //   WidgetsBinding.instance.addPostFrameCallback((_) {
+            //   double position =int.parse(flexId)==0? -10:int.parse(flexId) * (150 + 2 * 10) + (10 + 10);
+            //   widget.boardController!.animateTo(position,
+            //       duration: const Duration(milliseconds: 300),
+            //       curve: Curves.ease);
                   
-            });
+            // });
            
-            }
+            // }
            
           // else if (widget.boardController!.position.atEdge && status == AnimationStatus.completed) {
           //   WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -208,7 +208,7 @@ class ReorderFlexState extends State<ReorderFlex>
           //         curve: Curves.ease);
           //   });
           // }
-        }
+        // }
         
 
         if (status == AnimationStatus.completed) {
