@@ -189,15 +189,15 @@ class ReorderFlexState extends State<ReorderFlex>
           //         curve: Curves.ease);
           //   });
           // } 
-            if(int.parse(flexId)<5){
-              WidgetsBinding.instance.addPostFrameCallback((_) {
+            // if(int.parse(flexId)<5){
+              
+            // }
+           WidgetsBinding.instance.addPostFrameCallback((_) {
               double position =int.parse(flexId)==0? -10:int.parse(flexId) * (100 + 2 * 10) + (10 + 10);
               widget.boardController!.animateTo(position,
                   duration: const Duration(milliseconds: 300),
                   curve: Curves.ease);
             });
-            }
-           
           // else if (widget.boardController!.position.atEdge && status == AnimationStatus.completed) {
           //   WidgetsBinding.instance.addPostFrameCallback((_) {
           //     double position = int.parse(flexId) * (100 + 2 * 10) + (10 + 10);
