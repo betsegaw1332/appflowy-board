@@ -85,7 +85,8 @@ class BoardPhantomController extends OverlapDragTargetDelegate
       phantomState.notifyDidRemovePhantom(toGroupId);
     }
     if (phantomRecord!.toGroupId == groupId &&
-        int.parse(fromGroupId) < int.parse(toGroupId)) {
+        int.parse(fromGroupId) < int.parse(toGroupId) &&
+        int.parse(toGroupId) != 12) {
       delegate.moveGroupItemToAnotherGroup(
         fromGroupId,
         phantomRecord!.fromGroupIndex,
